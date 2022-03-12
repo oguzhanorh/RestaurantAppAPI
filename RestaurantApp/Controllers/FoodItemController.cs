@@ -1,0 +1,28 @@
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using RestaurantApp.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace RestaurantApp.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class FoodItemController : ControllerBase
+    {
+        private readonly RestaurantDbContext _context;
+
+        public FoodItemController(RestaurantDbContext context)
+        {
+            _context = context;
+        }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<FoodItem>>> GetFoodItems()
+        {
+            return await _context.FoodItems.ToListAsync();
+        }
+    }
+}
